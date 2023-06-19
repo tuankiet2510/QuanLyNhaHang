@@ -1,0 +1,119 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="QuanLyNhaHangModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="BAN">
+    <Key>
+      <PropertyRef Name="Tid" />
+    </Key>
+    <Property Name="Tid" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Tname" Type="nvarchar" MaxLength="50" />
+    <Property Name="Tstate" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="DANHMUC">
+    <Key>
+      <PropertyRef Name="MaDM" />
+    </Key>
+    <Property Name="MaDM" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenDM" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="NHANVIEN">
+    <Key>
+      <PropertyRef Name="Manv" />
+    </Key>
+    <Property Name="Manv" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="Ten" Type="nvarchar" MaxLength="50" />
+    <Property Name="SDT" Type="varchar" MaxLength="50" />
+    <Property Name="ChucVu" Type="nvarchar" MaxLength="50" />
+    <Property Name="Luong" Type="float" />
+  </EntityType>
+  <EntityType Name="SANPHAM">
+    <Key>
+      <PropertyRef Name="MaSP" />
+    </Key>
+    <Property Name="MaSP" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="TenSP" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaLoaiSP" Type="varchar" MaxLength="50" />
+    <Property Name="TenLoaiSP" Type="nvarchar" MaxLength="50" />
+    <Property Name="GiaSP" Type="float" />
+    <Property Name="AnhSP" Type="varbinary(max)" />
+  </EntityType>
+  <EntityType Name="TAIKHOAN">
+    <Key>
+      <PropertyRef Name="TenTaiKhoan" />
+    </Key>
+    <Property Name="TenTaiKhoan" Type="varchar" MaxLength="50" Nullable="false" />
+    <Property Name="MatKhau" Type="nvarchar" MaxLength="50" />
+    <Property Name="MaNV" Type="varchar" MaxLength="50" />
+    <Property Name="CapDoQuyen" Type="int" />
+  </EntityType>
+  <EntityType Name="tblDetails">
+    <Key>
+      <PropertyRef Name="DetailID" />
+    </Key>
+    <Property Name="MaBill" Type="int" />
+    <Property Name="proID" Type="varchar" MaxLength="50" />
+    <Property Name="proName" Type="nvarchar" MaxLength="50" />
+    <Property Name="qty" Type="int" />
+    <Property Name="price" Type="float" />
+    <Property Name="amount" Type="float" />
+    <Property Name="DetailID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <EntityType Name="tblMain">
+    <Key>
+      <PropertyRef Name="MaBill" />
+    </Key>
+    <Property Name="aDate" Type="date" />
+    <Property Name="aTime" Type="varchar" MaxLength="50" />
+    <Property Name="TableName" Type="nvarchar" MaxLength="50" />
+    <Property Name="WaiterName" Type="nvarchar" MaxLength="50" />
+    <Property Name="status" Type="varchar" MaxLength="15" />
+    <Property Name="orderType" Type="varchar" MaxLength="20" />
+    <Property Name="total" Type="float" />
+    <Property Name="received" Type="float" />
+    <Property Name="change" Type="float" />
+    <Property Name="driverID" Type="varchar" MaxLength="50" />
+    <Property Name="cusName" Type="nvarchar" MaxLength="50" />
+    <Property Name="cusPhone" Type="varchar" MaxLength="50" />
+    <Property Name="MaBill" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+  </EntityType>
+  <Association Name="FK__SANPHAM__AnhSP__3B75D760">
+    <End Role="DANHMUC" Type="Self.DANHMUC" Multiplicity="0..1" />
+    <End Role="SANPHAM" Type="Self.SANPHAM" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="DANHMUC">
+        <PropertyRef Name="MaDM" />
+      </Principal>
+      <Dependent Role="SANPHAM">
+        <PropertyRef Name="MaLoaiSP" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK__TAIKHOAN__MaNV__5EBF139D">
+    <End Role="NHANVIEN" Type="Self.NHANVIEN" Multiplicity="0..1" />
+    <End Role="TAIKHOAN" Type="Self.TAIKHOAN" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="NHANVIEN">
+        <PropertyRef Name="Manv" />
+      </Principal>
+      <Dependent Role="TAIKHOAN">
+        <PropertyRef Name="MaNV" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="QuanLyNhaHangModelStoreContainer">
+    <EntitySet Name="BAN" EntityType="Self.BAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="DANHMUC" EntityType="Self.DANHMUC" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="NHANVIEN" EntityType="Self.NHANVIEN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SANPHAM" EntityType="Self.SANPHAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TAIKHOAN" EntityType="Self.TAIKHOAN" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblDetails" EntityType="Self.tblDetails" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="tblMain" EntityType="Self.tblMain" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK__SANPHAM__AnhSP__3B75D760" Association="Self.FK__SANPHAM__AnhSP__3B75D760">
+      <End Role="DANHMUC" EntitySet="DANHMUC" />
+      <End Role="SANPHAM" EntitySet="SANPHAM" />
+    </AssociationSet>
+    <AssociationSet Name="FK__TAIKHOAN__MaNV__5EBF139D" Association="Self.FK__TAIKHOAN__MaNV__5EBF139D">
+      <End Role="NHANVIEN" EntitySet="NHANVIEN" />
+      <End Role="TAIKHOAN" EntitySet="TAIKHOAN" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
